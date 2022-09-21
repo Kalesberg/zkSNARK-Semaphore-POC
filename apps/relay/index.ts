@@ -3,7 +3,7 @@ import { config as dotenvConfig } from "dotenv"
 import { Contract, providers, utils, Wallet } from "ethers"
 import express from "express"
 import { resolve } from "path"
-import { abi as contractAbi } from "../contracts/build/contracts/contracts/Events.sol/Events.json"
+import { abi as contractAbi } from "../contracts/build/contracts/contracts/Demo.sol/Demo.json"
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") })
 
@@ -37,12 +37,12 @@ const provider = new providers.JsonRpcProvider(ethereumURL)
 const signer = new Wallet(ethereumPrivateKey, provider)
 const contract = new Contract(contractAddress, contractAbi, signer)
 
-app.post("/post-review", async (req, res) => {
-    const { review, nullifierHash, groupId, solidityProof } = req.body
+app.post("/add-signal", async (req, res) => {
+    const { signal, nullifierHash, groupId, solidityProof } = req.body
 
     try {
-        const transaction = await contract.postReview(
-            utils.formatBytes32String(review),
+        const transaction = await contract.addSignal(
+            utils.formatBytes32String(signal),
             nullifierHash,
             groupId,
             solidityProof

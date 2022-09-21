@@ -3,7 +3,7 @@ import { run } from "hardhat"
 async function main() {
     const { address: verifierAddress } = await run("deploy:verifier", { logs: false })
 
-    await run("deploy:events", {
+    await run("deploy:demo", {
         verifierAddress
     })
 }

@@ -1,7 +1,7 @@
 import { poseidon_gencontract as poseidonContract } from "circomlibjs"
 import { task, types } from "hardhat/config"
 
-task("deploy:events", "Deploy an Events contract")
+task("deploy:demo", "Deploy Demo contract")
     .addParam<number>("verifierAddress", "Semaphore verifier address", undefined, types.string)
     .addOptionalParam<number>("treeDepth", "Merkle tree depth", Number(process.env.TREE_DEPTH) || 20, types.int)
     .addOptionalParam("logs", "Print the logs", true, types.boolean)
@@ -33,7 +33,7 @@ task("deploy:events", "Deploy an Events contract")
             console.info(`IncrementalBinaryTree library has been deployed to: ${incrementalBinaryTreeLib.address}`)
         }
 
-        const FactoryContract = await ethers.getContractFactory("Events", {
+        const FactoryContract = await ethers.getContractFactory("Demo", {
             libraries: {
                 IncrementalBinaryTree: incrementalBinaryTreeLib.address
             }
@@ -44,7 +44,7 @@ task("deploy:events", "Deploy an Events contract")
         await contract.deployed()
 
         if (logs) {
-            console.info(`Events contract has been deployed to: ${contract.address}`)
+            console.info(`Demo contract has been deployed to: ${contract.address}`)
         }
 
         return contract
