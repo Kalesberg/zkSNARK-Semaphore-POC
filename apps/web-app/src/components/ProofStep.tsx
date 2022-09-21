@@ -47,14 +47,17 @@ export default function ProofStep({ signer, contract, event, identity, onPrevCli
                 try {
                     const members = await contract.queryFilter(contract.filters.MemberAdded(event.groupId))
                     const group = new Group()
-
                     group.addMembers(members.map((m) => m.args![2].toString()))
 
                     const { proof, publicSignals } = await generateProof(
                         identity,
                         group,
                         event.groupId.toString(),
-                        review
+                        review,
+                        {
+                            wasmFilePath: 'http://localhost:3000/artifacts/wasm',
+                            zkeyFilePath: 'http://localhost:3000/artifacts/zkey',
+                        }
                     )
                     const solidityProof = packToSolidityProof(proof)
 
