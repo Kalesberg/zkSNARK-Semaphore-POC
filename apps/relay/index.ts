@@ -74,6 +74,14 @@ app.post("/add-member", async (req, res) => {
     }
 })
 
+app.get("/artifacts/wasm", async (req, res) => {
+    res.download('./artifacts/semaphore.wasm');
+});
+
+app.get("/artifacts/zkey", async (req, res) => {
+    res.download('./artifacts/semaphore.zkey');
+});
+
 app.listen(port, () => {
     console.info(`Started HTTP relay API at ${process.env.RELAY_URL}/`)
 })
